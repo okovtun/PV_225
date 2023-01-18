@@ -37,7 +37,16 @@ public:
 	}
 };
 
+double distance(Point A, Point B)
+{
+	double x_distance = A.get_x() - B.get_x();
+	double y_distance = A.get_y() - B.get_y();
+	double distance = sqrt(x_distance*x_distance + y_distance * y_distance);
+	return distance;
+}
+
 //#define STRUCT_POINT
+//#define DISTANCE_CHECK
 
 void main()
 {
@@ -61,14 +70,28 @@ void main()
 	//https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%BD%D0%B3%D0%B5%D1%80%D1%81%D0%BA%D0%B0%D1%8F_%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F  
 #endif // STRUCT_POINT
 
+#ifdef DISTANCE_CHECK
 	Point A;
 	A.set_x(2);
 	A.set_y(3);
+	cout << A.get_x() << "\t" << A.get_y() << endl;
+
 	Point B;
 	B.set_x(7);
 	B.set_y(8);
-	cout << A.get_x() << "\t" << A.get_y() << endl;
+	cout << B.get_x() << "\t" << B.get_y() << endl;
+
 	cout << "Расстояние от точки A до точки B: " << A.distance(B) << endl;
+	cout << "Расстояние от точки B до точки A: " << B.distance(A) << endl;
+	cout << "Расстояние между точками A и B:   " << distance(A, B) << endl;
+	cout << "Расстояние между точками B и A:   " << distance(B, A) << endl;
+#endif // DISTANCE_CHECK
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << i << "\t";
+	}
+	cout << endl;
 }
 
 /*
@@ -94,5 +117,13 @@ set (назначить, задать, установить) - позволяют задать значение переменной в кла
 
 2. Наследование (Inheritance);
 3. Полиморфизм  (Polymorphism);
+--------------------------------------------
+*/
+
+/*
+--------------------------------------------
+1. Constructor - это метод, который создает объект
+2. ~Destructor - это метод, который уничтожает объект, по истечении его времени жизни
+3. Assingment operator
 --------------------------------------------
 */
