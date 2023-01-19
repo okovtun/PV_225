@@ -1,6 +1,9 @@
 //IntroductionToOOP
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 //				КЛАСС - ЭТО ТИП ДАННЫХ!!!
 //				СТРУКТУРА - ЭТО ТИП ДАННЫХ!!!
@@ -27,13 +30,42 @@ public:
 		this->y = y;
 	}
 
+	//					Constructors:
+	/*Point()
+	{
+		x = y = 0;
+		//RAII - Resource Aqulisation - Is Initialisation 
+		//		(Выделение ресурсов - значит инициализация)
+		cout << "DefConstructor:\t" << this << endl;
+	}*/
+	/*Point(double x)
+	{
+		this->x = x;
+		this->y = 0;
+		cout << "1ArgConstructor:" << this << endl;
+	}*/
+	Point(double x = 0, double y = 0)
+	{
+		this->x = x;
+		this->y = y;
+		cout << "Constructor:\t" << this << endl;
+	}
+	~Point()
+	{
+		cout << "Destructor:\t" << this << endl;
+	}
+
 	//					Methods:
-	double distance(Point other)
+	double distance(Point other)const
 	{
 		double x_distance = this->x - other.x;
 		double y_distance = this->y - other.y;
 		double distance = sqrt(x_distance*x_distance + y_distance * y_distance);
 		return distance;
+	}
+	void print()const
+	{
+		cout << "X = " << x << "\tY = " << y << endl;
 	}
 };
 
@@ -51,7 +83,7 @@ double distance(Point A, Point B)
 void main()
 {
 	setlocale(LC_ALL, "");
-	cout << "Hello OOP" << endl;
+	//cout << "Hello OOP" << endl;
 
 #ifdef STRUCT_POINT
 	int a;		//Объявление переменной 'a' типа 'int'
@@ -87,11 +119,15 @@ void main()
 	cout << "Расстояние между точками B и A:   " << distance(B, A) << endl;
 #endif // DISTANCE_CHECK
 
-	for (int i = 0; i < 10; i++)
-	{
-		cout << i << "\t";
-	}
-	cout << endl;
+	Point A;	//Default constructor
+	//cout << A.get_x() << "\t" << A.get_y() << endl;
+	A.print();
+
+	Point B(2, 3);
+	B.print();
+
+	Point C = 4;//Single-Argument constructor
+	C.print();
 }
 
 /*
@@ -110,7 +146,7 @@ public:		открытые поля, доступные из любого места программы
 protected:	защищенные поля, доступны внутри нашего класса и его дочерних классов
 			(этот модификатор доступа используется только при наследовании)
 get/set-методы - обеспечивают доступ извне к закрытым переменным в классе.
-get (взять, получить) - позволяют получить (взять) значение переменной 
+get (взять, получить) - позволяют получить (взять) значение переменной
 						(открывают доступ на чтение к переменным членам класса)
 set (назначить, задать, установить) - позволяют задать значение переменной в классе
 						(открывают доступ к переменным членам класса на запись).
