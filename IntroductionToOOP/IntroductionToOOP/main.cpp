@@ -36,7 +36,7 @@ public:
 	/*Point()
 	{
 		x = y = 0;
-		//RAII - Resource Aqulisation - Is Initialisation 
+		//RAII - Resource Aqulisation - Is Initialisation
 		//		(Выделение ресурсов - значит инициализация)
 		cout << "DefConstructor:\t" << this << endl;
 	}*/
@@ -64,12 +64,26 @@ public:
 	}
 
 	//					Operators:
-	Point operator=(const Point& other)
+	Point& operator=(const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
+	}
+
+	Point& operator++()
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int)
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
 	}
 
 	//					Methods:
@@ -94,11 +108,19 @@ double distance(const Point& A, const Point& B)
 	return distance;
 }
 
+Point operator+(const Point& left, const Point& right)
+{
+	Point res;
+	res.set_x(left.get_x() + right.get_x());
+	res.set_y(left.get_y() + right.get_y());
+	return res;
+}
+
 //#define STRUCT_POINT
 //#define DISTANCE_CHECK
 //#define CONSTRUCTORS_CHECK
 //#define ASSIGNMENT_CHECK_1
-#define ASSIGNMENT_CHECK_2
+//#define ASSIGNMENT_CHECK_2
 
 void main()
 {
@@ -171,11 +193,33 @@ void main()
 	C.print();
 #endif // ASSIGNMENT_CHECK_1
 
+#ifdef ASSIGNMENT_CHECK_2
 	int a, b, c;
 	a = b = c = 0;
 
 	Point A, B, C;
+	cout << delimiter << endl;
 	A = B = C = Point(2, 3);
+	//Point(2, 3) - явный вызов конструктора, и этот конструктор создает временный безымянный объект.
+	//Временные безымянные объекты существую в пределах одного выражения.
+	cout << delimiter << endl;
+	/*cout << "Begin" << endl;
+	Point(2, 3);
+	cout << "End" << endl;*/
+#endif // ASSIGNMENT_CHECK_2
+
+	int a = 2;
+	int b = 3;
+	int c = a + b;
+
+	Point A(2, 3);
+	Point B(4, 5);
+	Point C = A + B + A + B;
+	C.print();
+	cout << delimiter << endl;
+	C++;
+	cout << delimiter << endl;
+	C.print();
 }
 
 /*
@@ -209,5 +253,27 @@ set (назначить, задать, установить) - позволяю�
 1. Constructor - это метод, который создает объект
 2. ~Destructor - это метод, который уничтожает объект, по истечении его времени жизни
 3. Assingment operator
+--------------------------------------------
+*/
+
+/*
+--------------------------------------------
+1. Перегрузить можно только существующие операторы, 
+   невозможно создавать новые операторы.
+   Например:
+	+  - перегружается;
+	++ - перегружается;
+	*  - перегружается;
+	** - НЕ перегружается;
+2. НЕ все существующие операторы можно перегрузить.
+   НЕ перегружаются:
+	?: - Conditional ternary
+	:: - Scope operator (Оператор разрешения видимости)
+	.  - Point operator (Оператор прямого доступа)
+	.* - Pointer to member selection
+	#  - Preprocessor directive
+	## - Preprocessor concatenation
+3. Переопределить поведение операторов над встроенными типами НЕВОЗМОЖНО!
+4. Перегруженные операторы сохраняют приоритет.
 --------------------------------------------
 */
