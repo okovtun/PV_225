@@ -86,6 +86,13 @@ public:
 		return old;
 	}
 
+	Point& operator()(double x, double y)
+	{
+		set_x(x);
+		set_y(y);
+		return *this;
+	}
+
 	//					Methods:
 	double distance(const Point& other)const
 	{
@@ -114,6 +121,32 @@ Point operator+(const Point& left, const Point& right)
 	res.set_x(left.get_x() + right.get_x());
 	res.set_y(left.get_y() + right.get_y());
 	return res;
+}
+
+//					Comparison operators:
+bool operator==(const Point& left, const Point& right)
+{
+	/*if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
+		return true;
+	else
+		return false;*/
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+}
+bool operator!=(const Point& left, const Point& right)
+{
+	return left.get_x() != right.get_x() || left.get_y() != right.get_y();
+}
+
+std::ostream& operator<<(std::ostream& os, const Point& obj)
+{
+	return os << "X = " << obj.get_x() << "\tY = " << obj.get_y();
+}
+std::istream& operator>>(std::istream& is, Point& obj)
+{
+	double x, y;
+	is >> x >> y;
+	obj(x, y);
+	return is;
 }
 
 //#define STRUCT_POINT
@@ -208,7 +241,7 @@ void main()
 	cout << "End" << endl;*/
 #endif // ASSIGNMENT_CHECK_2
 
-	int a = 2;
+	/*int a = 2;
 	int b = 3;
 	int c = a + b;
 
@@ -219,7 +252,26 @@ void main()
 	cout << delimiter << endl;
 	C++;
 	cout << delimiter << endl;
-	C.print();
+	C.print();*/
+
+	/*Point A(2, 3);
+	Point B(4, 5);
+	cout << (A != B) << endl;*/
+
+	Point A(2, 3);
+	A.print();
+	
+	/*A.set_x(12);
+	A.set_y(13);*/
+	A(22, 33);
+	//A.print();
+	cout << A << endl;
+
+	cout << "Введите координаты точки: "; 
+	
+	cin >> A;
+	
+	cout << A << endl;
 }
 
 /*
@@ -258,7 +310,7 @@ set (назначить, задать, установить) - позволяю�
 
 /*
 --------------------------------------------
-1. Перегрузить можно только существующие операторы, 
+1. Перегрузить можно только существующие операторы,
    невозможно создавать новые операторы.
    Например:
 	+  - перегружается;
