@@ -2,6 +2,10 @@
 #include<iostream>
 using namespace std;
 
+class Fraction;
+Fraction operator*(Fraction left, Fraction right);
+Fraction operator/(const Fraction& left, const Fraction& right);
+
 class Fraction
 {
 	int integer;		//целая часть
@@ -73,6 +77,25 @@ public:
 	{
 		cout << "Destructor:\t\t" << this << endl;
 	}
+
+	//				Operators:
+	Fraction& operator=(const Fraction& other)
+	{
+		this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+	Fraction& operator*=(const Fraction& other)
+	{
+		return *this = *this*other;
+	}
+	Fraction& operator/=(const Fraction& other)
+	{
+		return *this = *this / other;
+	}
+
 	//				Methods:
 	Fraction& to_improper()
 	{
@@ -92,6 +115,23 @@ public:
 		inverted.to_improper();
 		swap(inverted.numerator, inverted.denominator);
 		return inverted;
+	}
+	Fraction& reduce()
+	{
+		//https://www.webmath.ru/poleznoe/formules_12_7.php
+		int more, less, rest = 0;
+		if (numerator > denominator)more = numerator, less = denominator;
+		else less = numerator, more = denominator;
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+		int GCD = more;	//GCD - Greates Common Divisor (Наибольший общий делитель)
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
 	}
 	void print()const
 	{
@@ -128,7 +168,7 @@ Fraction operator*(Fraction left, Fraction right)
 	(
 		left.get_numerator()*right.get_numerator(),
 		left.get_denominator()*right.get_denominator()
-	).to_proper();
+	).to_proper().reduce();
 }
 Fraction operator/(const Fraction& left, const Fraction& right)
 {
@@ -168,9 +208,6 @@ void main()
 	double b = 3;
 	double c = a * b;
 
-
-
-
 	Fraction A(2, 3, 4);
 	A.print();
 
@@ -184,5 +221,7 @@ void main()
 	D.print();*/
 
 	A *= B;
+	A.print();
+	A /= B;
 	A.print();
 }
