@@ -295,6 +295,9 @@ void main()
 	//cout << (3 == 3) << endl;  
 #endif // COMPARISON_OPERATORS
 
+	Fraction A(2, 3, 4);
+	cout << A << endl;
+
 #ifdef TYPE_CONVERSIONS_BASICS
 			//	(type)value;	//C-like notation (C-подобная форма записи)
 //	type(value);	//Functional notation (Функциональная форма записи)
