@@ -7,6 +7,19 @@ https://github.com/AllonsiWho/Book
 
 TODO:
 Проверочный код должен заработать:
+	String str1 = "Hello";
+	cout << str1 << endl;
+
+	String str2 = "World";
+	cout << str2 << endl;
+
+	String str3 = str1 + str2;	//Конкатенация (слияние) строк
+	cout << str3 << endl;
+
+
+
+DONE:
+Проверочный код должен заработать:
 1. DONE https://github.com/okovtun/PV_225/blob/b48f47bdc82c4e7a324e8b90a0ff37822259298c/IntroductionToOOP/Fraction/main.cpp#L349;
 2. https://github.com/okovtun/PV_225/blob/b48f47bdc82c4e7a324e8b90a0ff37822259298c/IntroductionToOOP/Fraction/main.cpp#L355
 
