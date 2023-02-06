@@ -7,7 +7,7 @@ https://github.com/AllonsiWho/Book
 
 TODO:
 Проверочный код должен заработать:
-1. https://github.com/okovtun/PV_225/blob/b48f47bdc82c4e7a324e8b90a0ff37822259298c/IntroductionToOOP/Fraction/main.cpp#L349;
+1. DONE https://github.com/okovtun/PV_225/blob/b48f47bdc82c4e7a324e8b90a0ff37822259298c/IntroductionToOOP/Fraction/main.cpp#L349;
 2. https://github.com/okovtun/PV_225/blob/b48f47bdc82c4e7a324e8b90a0ff37822259298c/IntroductionToOOP/Fraction/main.cpp#L355
 
 TODO:
