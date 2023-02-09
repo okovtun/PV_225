@@ -16,7 +16,7 @@ TODO:
 	String str3 = str1 + str2;	//Конкатенация (слияние) строк
 	cout << str3 << endl;
 
-
+TOREAD:https://legacy.cplusplus.com/doc/tutorial/classes2/
 
 DONE:
 Проверочный код должен заработать:
