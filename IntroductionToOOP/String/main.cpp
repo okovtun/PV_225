@@ -26,34 +26,24 @@ public:
 	}
 
 	//				Constructors:
-	explicit String(int size = 80)
+	explicit String(int size = 80) :size(size), str(new char[size] {})
 	{
-		this->size = size;
-		this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	String(const char* str)
+	String(const char* str) :size(strlen(str) + 1), str(new char[size] {})
 	{
-		this->size = strlen(str) + 1;	//функция strlen() возвращает размер строки в символах,
-										//но в классе хранится размер строки в Байтах, т.е., с учетом терминирующего нуля.
-		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "1ArgConstructor:" << this << endl;
 	}
-	String(const String& other)
+	String(const String& other) :size(other.size), str(new char[size] {})
 	{
 		//Deep copy - побитовое копирование
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)
-			this->str[i] = other.str[i];
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << endl;
 	}
-	String(String&& other)noexcept
+	String(String&& other)noexcept:size(other.size), str(other.str)
 	{
 		//Shallow copy - поверхностное копирование
-		this->size = other.size;
-		this->str = other.str;		//Shallow copy
 		other.size = 0;
 		other.str = nullptr;		//nullptr - это указатель на ноль.
 		cout << "MoveConstructor:" << this << endl;
@@ -102,7 +92,7 @@ public:
 	}
 
 
-	
+
 	//				Methods:
 	void print()const
 	{
@@ -116,10 +106,10 @@ String operator+(const String& left, const String& right)
 	String cat(left.get_size() + right.get_size() - 1);
 	for (int i = 0; i < left.get_size(); i++)
 		cat[i] = left[i];
-		//cat.get_str()[i] = left.get_str()[i];
+	//cat.get_str()[i] = left.get_str()[i];
 	for (int i = 0; i < right.get_size(); i++)
 		cat[i + left.get_size() - 1] = right[i];
-		//cat.get_str()[i + left.get_size() - 1] = right.get_str()[i];
+	//cat.get_str()[i + left.get_size() - 1] = right.get_str()[i];
 	return cat;
 }
 
@@ -128,14 +118,15 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
-//#define BASE_CHECK
+#define BASE_CHECK
+//#define CALLING_CONSTRUCTORS
 
 void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef BASE_CHECK
-	//String str1(5);
-//str1.print();
+	String str(5);
+	str.print();
 
 	String str1 = "Hello";	//"Hello" - это строковая константа
 	str1 = str1;
@@ -154,7 +145,7 @@ void main()
 	cout << str3 << endl;
 
 	String str4 = str3;	//Copy constructor
-
+	str4.print();
 	//str1 = str3;
 	//cout << str1 << endl;
 
@@ -176,6 +167,7 @@ void main()
 	*/
 #endif // BASE_CHECK
 
+#ifdef CALLING_CONSTRUCTORS
 	String str1;	//Default constructor
 	str1.print();
 	String str2 = "Hello";	//Single argument constructor
@@ -189,9 +181,11 @@ void main()
 	//Если мы хотим явно вызвать конструктор по умолчанию, то это можно сделать так:
 	String str5{};	//Явный вызов конструктора по умолчанию.
 	str5.print();
-	String str6{22};
+	String str6{ 22 };
 	str6.print();
 	String str7{ "World" };
 	str7.print();
-	String str8{ str7 };	//Copy constructor
+	String str8{ str7 };	//Copy constructor  
+#endif // CALLING_CONSTRUCTORS
+
 }
