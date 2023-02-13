@@ -6,6 +6,9 @@ https://github.com/AllonsiWho/Books.git
 https://github.com/AllonsiWho/Book
 
 TODO:
+Создать ветку FractionSeparation и в этой ветке разделить класс Fraction на файлы;
+
+DONE:
 Реализовать класс Matrix, описывающий матрицу, и написать все необходимые методы для этого класса.
 
 DONE:
