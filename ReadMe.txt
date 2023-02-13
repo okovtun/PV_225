@@ -6,6 +6,9 @@ https://github.com/AllonsiWho/Books.git
 https://github.com/AllonsiWho/Book
 
 TODO:
+Реализовать класс Matrix, описывающий матрицу, и написать все необходимые методы для этого класса.
+
+DONE:
 Проверочный код должен заработать:
 	String str1 = "Hello";
 	cout << str1 << endl;
