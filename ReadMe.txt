@@ -6,6 +6,10 @@ https://github.com/AllonsiWho/Books.git
 https://github.com/AllonsiWho/Book
 
 TODO:
+Перегрузить констуктор класса Student таким образом, 
+чтобы студента можно было создать из уже существующего человека.
+
+DONE:
 Создать ветку FractionSeparation и в этой ветке разделить класс Fraction на файлы;
 
 DONE:
