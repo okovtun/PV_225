@@ -6,6 +6,9 @@ https://github.com/AllonsiWho/Books.git
 https://github.com/AllonsiWho/Book
 
 TODO:
+ƒобить вывод на экран в проекте Academy.
+
+DONE:
 ѕерегрузить констуктор класса Student таким образом, 
 чтобы студента можно было создать из уже существующего человека.
 

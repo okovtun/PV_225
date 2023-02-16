@@ -71,6 +71,11 @@ public:
 	}
 };
 
+std::ostream& operator<<(std::ostream& os, const Human& obj)
+{
+	return os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age();
+}
+
 #define STUDENT_TAKE_PARAMETERS	const std::string& specialty, const std::string& group, double rating, double attendance
 #define STUDENT_GIVE_PARAMETERS	specialty, group, rating, attendance
 class Student : public Human
@@ -145,6 +150,10 @@ public:
 		cout << specialty << " " << group << " " << rating << " " << attendance << endl;
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Student& obj)
+{
+	return os <<(Human&)obj << " " << obj.get_specialty() << " " << obj.get_group() << " " << obj.get_rating() << " " << obj.get_attendance();
+}
 
 #define TEACHER_TAKE_PARAMETERS	const std::string& specialty, unsigned int experience
 class Teacher :public Human
@@ -187,6 +196,10 @@ public:
 		cout << specialty << " " << experience << " лет.\n";
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Teacher& obj)
+{
+	return os << obj.get_specialty() << " " << obj.get_experience();
+}
 
 class Graduate :public Student
 {
@@ -216,6 +229,10 @@ public:
 		cout << subject << endl;
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Graduate& obj)
+{
+	return os << obj.get_subject();
+}
 
 //#define TIME_CHECK
 //#define INHERITANCE_CHECK
@@ -253,7 +270,7 @@ void main()
 	----------------
 	Ad-Hoc polymorphism
 	----------------
-	1. Pointer to base class 
+	1. Pointer to base class
 		(Generalisation - Обобщение)
 		Upcast - преобразование дочернего объекта в базовый тип.
 	2. Virtual methods;
@@ -268,9 +285,14 @@ void main()
 		new Teacher("Diaz", "Ricardo", 1960, 03,03, "Weapons distribution", 20)
 	};
 
+	cout << "\n--------------------------------------------\n";
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
-		group[i]->info();
+		//group[i]->info();
+		//RRTI - Runtime Type Information
+		cout << typeid(*group[i]).name() << ":\t";
+		//cout << *group[i] << endl;
+		if (typeid(*group[i]) == typeid(Student))cout << *dynamic_cast<Student*>(group[i]) << endl;
 		cout << "\n--------------------------------------------\n";
 	}
 
