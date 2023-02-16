@@ -5,6 +5,9 @@
 #include<ctime>
 using namespace std;
 
+#define HUMAN_TAKE_PARAMETERS	const std::string& last_name, const std::string& first_name, int year, int month, int day
+#define HUMAN_GIVE_PARAMETERS	last_name, first_name, year, month, day
+
 class Human
 {
 	std::string last_name;
@@ -49,25 +52,27 @@ public:
 	}
 
 	//				Constructors:
-	Human(const std::string& last_name, const std::string& first_name, int year, int month, int day)
+	Human(HUMAN_TAKE_PARAMETERS)
 	{
 		set_last_name(last_name);
 		set_first_name(first_name);
 		set_birth_date(year, month, day);
 		cout << "HConstructors:\t" << this << endl;
 	}
-	~Human()
+	virtual ~Human()
 	{
 		cout << "HDestructors:\t" << this << endl;
 	}
 
 	//					Methods:
-	void info()const
+	virtual void info()const
 	{
 		cout << last_name << " " << first_name << " " << get_age() << endl;
 	}
 };
 
+#define STUDENT_TAKE_PARAMETERS	const std::string& specialty, const std::string& group, double rating, double attendance
+#define STUDENT_GIVE_PARAMETERS	specialty, group, rating, attendance
 class Student : public Human
 {
 	std::string specialty;
@@ -109,11 +114,20 @@ public:
 	}
 
 	//						Constructors:
+	Student(HUMAN_TAKE_PARAMETERS, STUDENT_TAKE_PARAMETERS)
+		:Human(HUMAN_GIVE_PARAMETERS)//Вызов конструктора базового класса
+	{
+		set_speciality(specialty);
+		set_group(group);
+		set_rating(rating);
+		set_attendance(attendance);
+		cout << "SConstructor:\t" << this << endl;
+	}
 	Student
 	(
-		const std::string& last_name, const std::string& first_name, int year, int month, int day,
+		const Human& human,
 		const std::string& specialty, const std::string& group, double rating, double attendance
-	):Human(last_name, first_name, year, month, day)//Вызов конструктора базового класса
+	) :Human(human)
 	{
 		set_speciality(specialty);
 		set_group(group);
@@ -132,7 +146,79 @@ public:
 	}
 };
 
+#define TEACHER_TAKE_PARAMETERS	const std::string& specialty, unsigned int experience
+class Teacher :public Human
+{
+	std::string specialty;
+	unsigned int experience;
+public:
+	const std::string& get_specialty()const
+	{
+		return specialty;
+	}
+	unsigned int get_experience()const
+	{
+		return experience;
+	}
+	void set_specialty(const std::string& specialty)
+	{
+		this->specialty = specialty;
+	}
+	void set_experience(unsigned int experience)
+	{
+		this->experience = experience;
+	}
+
+	//				Constructor:
+	Teacher(HUMAN_TAKE_PARAMETERS, TEACHER_TAKE_PARAMETERS) :Human(HUMAN_GIVE_PARAMETERS)
+	{
+		set_specialty(specialty);
+		set_experience(experience);
+		cout << "TConstructor:\t" << this << endl;
+	}
+	~Teacher()
+	{
+		cout << "TDestructor:\t" << this << endl;
+	}
+
+	void info()const
+	{
+		Human::info();
+		cout << specialty << " " << experience << " лет.\n";
+	}
+};
+
+class Graduate :public Student
+{
+	std::string subject;
+public:
+	const std::string& get_subject()const
+	{
+		return subject;
+	}
+	void set_subject(const std::string& subject)
+	{
+		this->subject = subject;
+	}
+	Graduate(HUMAN_TAKE_PARAMETERS, STUDENT_TAKE_PARAMETERS, const std::string& subject)
+		:Student(HUMAN_GIVE_PARAMETERS, STUDENT_GIVE_PARAMETERS)
+	{
+		set_subject(subject);
+		cout << "GConstructor:\t" << this << endl;
+	}
+	~Graduate()
+	{
+		cout << "GDestructor:\t" << this << endl;
+	}
+	void info()const
+	{
+		Student::info();
+		cout << subject << endl;
+	}
+};
+
 //#define TIME_CHECK
+//#define INHERITANCE_CHECK
 
 void main()
 {
@@ -147,11 +233,50 @@ void main()
 	cout << asctime(tm_today) << endl;
 #endif // TIME_CHECK
 
+#ifdef INHERITANCE_CHECK
 	Human human("Тупенко", "Василий", 1990, 04, 01);
 	human.info();
 
-	Student student("Тупенко", "Василий", 1990, 04, 01, "IT", "start", 60, 30);
+	//Student student("Тупенко", "Василий", 1990, 04, 01, "IT", "start", 60, 30);
+	Student student(human, "IT", "start", 60, 30);
 	student.info();
 
-	student.get_birth_date();
+	Teacher teacher("Einstein", "Albert", 1879, 03, 14, "Atronomy", 120);
+	teacher.info();
+
+	Graduate graduate("Abignale", "Frank", 1920, 01, 02, "Artist", "Criminal", 98, 11, "Foregry documents");
+	graduate.info();
+#endif // INHERITANCE_CHECK
+
+	//Polymorphism
+	/*
+	----------------
+	Ad-Hoc polymorphism
+	----------------
+	1. Pointer to base class 
+		(Generalisation - Обобщение)
+		Upcast - преобразование дочернего объекта в базовый тип.
+	2. Virtual methods;
+	*/
+
+	Human* group[] =
+	{
+		new Student("Pinkman", "Jessie", 1990, 03,04, "Chemistry", "WW_220", 90, 95),
+		new Teacher("White", "Walter", 1960, 9, 20, "Chemistry", 25),
+		new Graduate("Schrader", "Hank", 1970, 06,07, "Criminalistic", "WW_220", 75, 80, "How to catch Heizenberg"),
+		new Student("Vercetty", "Tomas", 1970, 05, 25, "Criminalistic", "Vice", 90, 95),
+		new Teacher("Diaz", "Ricardo", 1960, 03,03, "Weapons distribution", 20)
+	};
+
+	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
+	{
+		group[i]->info();
+		cout << "\n--------------------------------------------\n";
+	}
+
+	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
+	{
+		delete group[i];
+	}
+
 }
