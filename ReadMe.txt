@@ -6,6 +6,13 @@ https://github.com/AllonsiWho/Books.git
 https://github.com/AllonsiWho/Book
 
 TODO:
+1. Есть файл 201 RAW.txt, из этого файла нужно создать другой файл 201 ready.txt, 
+   в котором столбик с IP-адресом и MAC-адресом будут поменяны местами;
+	https://github.com/okovtun/PV_225/blob/master/Inheritance/Files/NetworkTask/201%20RAW.txt
+2. Из файла 201 RAW.txt создать файл формата 201.dhcpd
+	https://github.com/okovtun/PV_225/blob/master/Inheritance/Files/NetworkTask/201.dhcpd
+
+DONE:
 Добить вывод на экран в проекте Academy.
 
 DONE:
