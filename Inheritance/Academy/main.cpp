@@ -65,11 +65,16 @@ public:
 	}
 
 	//					Methods:
-	virtual void info()const
+	virtual std::ostream& info(std::ostream& os)const
 	{
-		cout << last_name << " " << first_name << " " << get_age() << endl;
+		return os << last_name << " " << first_name << " " << get_age();
 	}
 };
+
+std::ostream& operator<<(std::ostream& os, const Human& obj)
+{
+	return obj.info(os);
+}
 
 #define STUDENT_TAKE_PARAMETERS	const std::string& specialty, const std::string& group, double rating, double attendance
 #define STUDENT_GIVE_PARAMETERS	specialty, group, rating, attendance
@@ -139,10 +144,9 @@ public:
 	{
 		cout << "SDestructor:\t" << this << endl;
 	}
-	void info()const
+	std::ostream& info(std::ostream& os)const
 	{
-		Human::info();
-		cout << specialty << " " << group << " " << rating << " " << attendance << endl;
+		return Human::info(os) << " " << specialty << " " << group << " " << rating << " " << attendance;
 	}
 };
 
@@ -181,10 +185,9 @@ public:
 		cout << "TDestructor:\t" << this << endl;
 	}
 
-	void info()const
+	std::ostream& info(std::ostream& os)const
 	{
-		Human::info();
-		cout << specialty << " " << experience << " лет.\n";
+		return Human::info(os) << " " << specialty << " " << experience << " лет.";
 	}
 };
 
@@ -210,10 +213,9 @@ public:
 	{
 		cout << "GDestructor:\t" << this << endl;
 	}
-	void info()const
+	std::ostream& info(std::ostream& os)const
 	{
-		Student::info();
-		cout << subject << endl;
+		return Student::info(os) << " " << subject;
 	}
 };
 
@@ -253,7 +255,7 @@ void main()
 	----------------
 	Ad-Hoc polymorphism
 	----------------
-	1. Pointer to base class 
+	1. Pointer to base class
 		(Generalisation - Обобщение)
 		Upcast - преобразование дочернего объекта в базовый тип.
 	2. Virtual methods;
@@ -270,7 +272,8 @@ void main()
 
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
-		group[i]->info();
+		//group[i]->info();
+		cout << *group[i] << endl;
 		cout << "\n--------------------------------------------\n";
 	}
 
