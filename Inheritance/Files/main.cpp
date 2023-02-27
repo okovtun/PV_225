@@ -17,6 +17,7 @@ void main()
 
 	ofstream fout;			//1) Создаем поток
 	fout.open(filename, std::ios_base::app);	//2) Открываем поток
+	//std::ios_base::app(append) - дозапись в конец файла
 	fout << "Hello files" << endl;	//3) Пишем в поток
 	fout.close();			//4) Закрываем поток
 
