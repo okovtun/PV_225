@@ -1,4 +1,4 @@
-#include<Windows.h>
+п»ї#include<Windows.h>
 #include<iostream>
 using namespace std;
 
@@ -19,7 +19,7 @@ namespace Geometry
 		console_red = 0xCC,
 		console_default = 0x07
 	};
-	//enum (Enumeration - Перечисление) - это набор именованных констант типа 'int'
+	//enum (Enumeration - РџРµСЂРµС‡РёСЃР»РµРЅРёРµ) - СЌС‚Рѕ РЅР°Р±РѕСЂ РёРјРµРЅРѕРІР°РЅРЅС‹С… РєРѕРЅСЃС‚Р°РЅС‚ С‚РёРїР° 'int'
 
 	class Shape
 	{
@@ -73,8 +73,8 @@ namespace Geometry
 		virtual void draw()const = 0;
 		virtual void info()const
 		{
-			cout << "Площадь фигуры: " << get_area() << endl;
-			cout << "Периметр фигуры: " << get_perimeter() << endl;
+			cout << "РџР»РѕС‰Р°РґСЊ С„РёРіСѓСЂС‹: " << get_area() << endl;
+			cout << "РџРµСЂРёРјРµС‚СЂ С„РёРіСѓСЂС‹: " << get_perimeter() << endl;
 			draw();
 		}
 	};
@@ -124,7 +124,7 @@ namespace Geometry
 		void info()const
 		{
 			cout << typeid(*this).name() << endl;
-			cout << "Длина стороны квадрата: " << side << endl;
+			cout << "Р”Р»РёРЅР° СЃС‚РѕСЂРѕРЅС‹ РєРІР°РґСЂР°С‚Р°: " << side << endl;
 			Shape::info();
 		}
 	};*/
@@ -183,37 +183,37 @@ namespace Geometry
 			}
 			SetConsoleTextAttribute(hConsole, Color::console_default);*/
 
-			HWND hwnd = GetConsoleWindow();	//Получаем обработчик окна консоли
-			HDC hdc = GetDC(hwnd);	//Получаем контекст усройства окна косоли
-			//Контекст устройства - это то, на чем мы будем рисовать
+			HWND hwnd = GetConsoleWindow();	//РџРѕР»СѓС‡Р°РµРј РѕР±СЂР°Р±РѕС‚С‡РёРє РѕРєРЅР° РєРѕРЅСЃРѕР»Рё
+			HDC hdc = GetDC(hwnd);	//РџРѕР»СѓС‡Р°РµРј РєРѕРЅС‚РµРєСЃС‚ СѓСЃСЂРѕР№СЃС‚РІР° РѕРєРЅР° РєРѕСЃРѕР»Рё
+			//РљРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР° - СЌС‚Рѕ С‚Рѕ, РЅР° С‡РµРј РјС‹ Р±СѓРґРµРј СЂРёСЃРѕРІР°С‚СЊ
 
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			//Pen (карандаш) рисут контур фигуры,
-			//PS_SOLID - сплошная линия
-			//5 - толщина линии 5 пикселов
+			//Pen (РєР°СЂР°РЅРґР°С€) СЂРёСЃСѓС‚ РєРѕРЅС‚СѓСЂ С„РёРіСѓСЂС‹,
+			//PS_SOLID - СЃРїР»РѕС€РЅР°СЏ Р»РёРЅРёСЏ
+			//5 - С‚РѕР»С‰РёРЅР° Р»РёРЅРёРё 5 РїРёРєСЃРµР»РѕРІ
 
 			HBRUSH hBrush = CreateSolidBrush(color);
-			//Brush - это кисть, рисует заливку замкнутой фигуры.
+			//Brush - СЌС‚Рѕ РєРёСЃС‚СЊ, СЂРёСЃСѓРµС‚ Р·Р°Р»РёРІРєСѓ Р·Р°РјРєРЅСѓС‚РѕР№ С„РёРіСѓСЂС‹.
 
-			//Выбираем чем и на чем рисовать:
+			//Р’С‹Р±РёСЂР°РµРј С‡РµРј Рё РЅР° С‡РµРј СЂРёСЃРѕРІР°С‚СЊ:
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
-			//Когда все инфстументы созданы и выбраны, можно вызывать функцию,
-			//для рисования нужно фигуры:
+			//РљРѕРіРґР° РІСЃРµ РёРЅС„СЃС‚СѓРјРµРЅС‚С‹ СЃРѕР·РґР°РЅС‹ Рё РІС‹Р±СЂР°РЅС‹, РјРѕР¶РЅРѕ РІС‹Р·С‹РІР°С‚СЊ С„СѓРЅРєС†РёСЋ,
+			//РґР»СЏ СЂРёСЃРѕРІР°РЅРёСЏ РЅСѓР¶РЅРѕ С„РёРіСѓСЂС‹:
 
 			::Rectangle(hdc, start_x, start_y, start_x + side_1, start_y + side_2);
 
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
-			ReleaseDC(hwnd, hdc);	//Освобождаем контекст устройства
+			ReleaseDC(hwnd, hdc);	//РћСЃРІРѕР±РѕР¶РґР°РµРј РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР°
 		}
 
 		void info()const
 		{
 			cout << typeid(*this).name() << endl;
-			cout << "Сторона 1: " << side_1 << endl;
-			cout << "Сторона 2: " << side_2 << endl;
+			cout << "РЎС‚РѕСЂРѕРЅР° 1: " << side_1 << endl;
+			cout << "РЎС‚РѕСЂРѕРЅР° 2: " << side_2 << endl;
 			Shape::info();
 		}
 	};
