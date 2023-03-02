@@ -9,6 +9,12 @@ TODO:
 Реализовать иерархию геометрических фигур: квадрат, треугольник, прямоугольник, круг и т.д.
 Для каждой фигуры необходимо вывести ее первичные свойства, такие как радиус, длина стороны, и т.д.
 и вторичные свойства такие как площадь, периметр, так же каждую фигуру нужно нарисовать.
+Для рисования фигуры нужно задать начальные координаты, по которым фигура будет выводится.
+	https://learn.microsoft.com/en-us/windows/win32/api/_gdi/
+	https://learn.microsoft.com/en-us/windows/win32/gdi/windows-gdi
+	https://learn.microsoft.com/en-us/windows/win32/gdi/about-filled-shapes
+	https://learn.microsoft.com/en-us/windows/win32/gdi/about-ellipses
+	https://learn.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-ellipse
 
 DONE:
 1. Сохранить групу в файл;

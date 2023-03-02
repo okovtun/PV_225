@@ -1,4 +1,5 @@
-﻿#include<Windows.h>
+﻿#define _USE_MATH_DEFINES
+#include<Windows.h>
 #include<iostream>
 using namespace std;
 
@@ -44,7 +45,7 @@ namespace Geometry
 		void set_start_x(int start_x)
 		{
 			if (start_x < 10)start_x = 10;
-			if (start_x > 500)start_x = 500;
+			if (start_x > 1000)start_x = 1000;
 			this->start_x = start_x;
 		}
 		void set_start_y(int start_y)
@@ -65,6 +66,7 @@ namespace Geometry
 			set_start_x(start_x);
 			set_start_y(start_y);
 			set_line_width(line_width);
+			this;
 		}
 		virtual ~Shape() {}
 
@@ -225,6 +227,62 @@ namespace Geometry
 			:Rectangle(side, side, color, start_x, start_y, line_width) {}
 		~Square() {}
 	};
+
+	class Circle :public Shape
+	{
+		double radius;
+	public:
+		double get_radius()const
+		{
+			return radius;
+		}
+		void set_radius(double radius)
+		{
+			if (radius < 50)radius = 50;
+			if (radius > 550)radius = 550;
+			this->radius = radius;
+		}
+		Circle(double radius, Color color, int start_x, int start_y, int line_width)
+			:Shape(color, start_x, start_y, line_width)
+		{
+			set_radius(radius);
+		}
+		~Circle() {}
+		double get_area()const override
+		{
+			return M_PI*radius*radius;
+		}
+		double get_perimeter()const override
+		{
+			return 2 * M_PI*radius;
+		}
+		void draw()const override
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+
+			::Ellipse(hdc, start_x, start_y, start_x + 2 * radius, start_y + 2 * radius);
+
+			DeleteObject(hBrush);
+			DeleteObject(hPen);
+
+			ReleaseDC(hwnd, hdc);
+		}
+
+		void info()const override
+		{
+			cout << typeid(*this).name() << endl;
+			cout << "Радиус круга: " << radius << endl;
+			Shape::info();
+		}
+	};
+
+	class Triangle:public 
 }
 
 void main()
@@ -235,9 +293,12 @@ void main()
 
 	setlocale(LC_ALL, "");
 
-	Geometry::Square square(1000, Geometry::Color::red, 300, 10, 5);
+	Geometry::Square square(200, Geometry::Color::red, 300, 50, 5);
 	square.info();
 
-	Geometry::Rectangle rect(120, 75, Geometry::Color::blue, 500, 10, 8);
+	Geometry::Rectangle rect(120, 75, Geometry::Color::blue, 550, 50, 8);
 	rect.info();
+
+	Geometry::Circle circle(100, Geometry::Color::yellow, 800, 50, 5);
+	circle.info();
 }
