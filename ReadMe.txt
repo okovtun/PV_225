@@ -5,7 +5,22 @@ Books:
 https://github.com/AllonsiWho/Books.git
 https://github.com/AllonsiWho/Book
 
+https://github.com/AllonsiWho/Geometri/blob/master/ConsoleDrawing%2020150725093727_3339f8ece8c.pdf
+
 TODO:
+В класс ForwardList добавить следующие методы:
+	void pop_front();	//удаляет элемент c начала списка
+	void pop_back();	//удаляет элемент c конца списка
+
+	void insert(int Data, int Index);	//вставляет элемент в список по заданному индексу
+	void erase(int Index);				//удаляет элемент из списка по заданному индексу
+
+	Деструктор дожен очищать список перед удалением
+
+	CopyMethods;
+	MoveMethods;
+
+DONE:
 Реализовать иерархию геометрических фигур: квадрат, треугольник, прямоугольник, круг и т.д.
 Для каждой фигуры необходимо вывести ее первичные свойства, такие как радиус, длина стороны, и т.д.
 и вторичные свойства такие как площадь, периметр, так же каждую фигуру нужно нарисовать.
