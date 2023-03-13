@@ -7,13 +7,17 @@ https://github.com/AllonsiWho/Book
 
 https://github.com/AllonsiWho/Geometri/blob/master/ConsoleDrawing%2020150725093727_3339f8ece8c.pdf
 
+https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb
+
 TODO:
 В класс ForwardList добавить следующие методы:
-	void pop_front();	//удаляет элемент c начала списка
-	void pop_back();	//удаляет элемент c конца списка
+	void pop_front();	//удаляет элемент c начала списка	DONE
+	void pop_back();	//удаляет элемент c конца списка	DONE
 
-	void insert(int Data, int Index);	//вставляет элемент в список по заданному индексу
+	void insert(int Data, int Index);	//вставляет элемент в список по заданному индексу	DONE
 	void erase(int Index);				//удаляет элемент из списка по заданному индексу
+
+	Оптимизировать методы добавления элементов, таким образом, как мы оптимизировали push_front()
 
 	Деструктор дожен очищать список перед удалением
 
